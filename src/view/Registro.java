@@ -254,7 +254,7 @@ public class Registro extends javax.swing.JFrame {
                 cmbRolItemStateChanged(evt);
             }
         });
-        getContentPane().add(cmbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 180, -1));
+        getContentPane().add(cmbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 160, -1));
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/volver.png"))); // NOI18N
         btnVolver.setLabel("VOLVER");

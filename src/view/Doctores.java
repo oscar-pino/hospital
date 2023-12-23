@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view;
 
 import dao.PrevisionDAO;
@@ -26,21 +23,30 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-/**
- *
- * @author windows
- */
+
 public class Doctores extends javax.swing.JFrame {
 
     ExportarDTO obj;
 
-    /**
-     * Creates new form Doctores
-     */
     public Doctores() {
         initComponents();
         previsionDAO = new PrevisionDAO();
         setLocationRelativeTo(null);
+        
+//        if (userDAO.listarUsuarios().isEmpty()) {
+//
+//            String[] botones = {"Aceptar", "Cancelar"};
+//
+//            int eleccion = JOptionPane.showOptionDialog(this, "Lista Vacia, ¿Quieres Agregar Una Autamaticamente?", "CONFIRMAR LISTA AUTOMATICA", 0, 0, null, botones, this);
+//
+//            if (eleccion == JOptionPane.YES_OPTION) {
+//
+//                userDAO.agregarListaDeUsuarios();
+//
+//                JOptionPane.showMessageDialog(this, "¡Lista Agregada Automaticamente!");
+//
+//            }
+//        }
         
         mostrarCombobox();
     }
@@ -80,7 +86,6 @@ public class Doctores extends javax.swing.JFrame {
         BtnImprimir = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -129,7 +134,7 @@ public class Doctores extends javax.swing.JFrame {
         cmbPrevision.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbPrevision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cmbPrevision.setSelectedIndex(-1);
-        getContentPane().add(cmbPrevision, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 280, -1));
+        getContentPane().add(cmbPrevision, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 190, -1));
 
         visorDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,9 +210,6 @@ public class Doctores extends javax.swing.JFrame {
         btnVolver.setText("VOLVER");
         btnVolver.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/volver.png"))); // NOI18N
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 507, -1, 40));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fondo.jpg"))); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-550, -330, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -323,7 +325,6 @@ public class Doctores extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbPrevision;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

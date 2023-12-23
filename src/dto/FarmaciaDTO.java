@@ -7,8 +7,8 @@ public class FarmaciaDTO {
     private String nombreProducto;
     private String descripcionProducto;
     private String proveedor;
-    private int unidad;
-    private int precio;
+    private int unidades;
+    private float precio;
     private String farmaceutico;
     private String registroReceta;
 
@@ -44,19 +44,23 @@ public class FarmaciaDTO {
         this.proveedor = proveedor;
     }
 
-    public int getUnidad() {
-        return unidad;
+    public int getUnidades() {
+        return unidades;
     }
 
-    public void setUnidad(int unidad) {
-        this.unidad = unidad;
+    public void setUnidades(int unidades) {
+        
+        if(unidades < 0)
+            this.unidades = 0;
+        else
+            this.unidades = unidades;
     }
 
-    public int getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(float precio) {
         this.precio = precio;
     }
 
@@ -78,6 +82,6 @@ public class FarmaciaDTO {
 
     @Override
     public String toString() {
-        return "FarmaciaDTO{" + "idFarmacia=" + idFarmacia + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", proveedor=" + proveedor + ", unidad=" + unidad + ", precio=" + precio + ", farmaceutico=" + farmaceutico + ", registroReceta=" + registroReceta + '}';
+        return "FarmaciaDTO{" + "idFarmacia=" + idFarmacia + ", nombreProducto=" + nombreProducto + ", descripcionProducto=" + descripcionProducto + ", proveedor=" + proveedor + ", unidad=" + unidades + ", precio=" + precio + ", farmaceutico=" + farmaceutico + ", registroReceta=" + registroReceta + '}';
     }    
 }

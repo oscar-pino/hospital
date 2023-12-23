@@ -56,7 +56,7 @@ public class UsuarioDAO {
             return usuario;            
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "¡Error Al Guardar Registro!\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "¡Error Al Guardar Registro Usuario!\n" + e.getMessage());
         }
             return null;
     }

@@ -10,11 +10,10 @@ public class DoctorDTO {
     private String apellido;
     private String cargo;
     private String direccion;
-    private int horastrabajadas;
-    private int horasExtras;
-    private int sueldoBase;
-    private String afp;
-    private String isapre;    
+    private float horastrabajadas;
+    private float horasExtras;
+    private float sueldoBase;
+    private PrevisionDTO prevision; 
 
     public int getIdDoctor() {
         return idDoctor;
@@ -73,48 +72,48 @@ public class DoctorDTO {
         this.direccion = direccion;
     }
 
-    public int getHorastrabajadas() {
+    public float getHorastrabajadas() {
         return horastrabajadas;
     }
     
-    public void setHorastrabajadas(int horastrabajadas) {
-        this.horastrabajadas = horastrabajadas;
+    public void setHorastrabajadas(float horastrabajadas) {
+        
+        if(horastrabajadas < 0)
+            this.horastrabajadas = 0;
+        else
+            this.horastrabajadas = horastrabajadas;
     }
     
-    public int getHorasExtras() {
+    public float getHorasExtras() {
         return horasExtras;
     }
 
-    public void setHorasExtras(int horasExtras) {
-        this.horasExtras = horasExtras;
+    public void setHorasExtras(float horasExtras) {
+        
+        if(horasExtras < 0)
+            this.horasExtras = 0;
+        else
+            this.horasExtras = horasExtras;
     }
 
-    public int getSueldoBase() {
+    public float getSueldoBase() {
         return sueldoBase;
     }
 
-    public void setSueldoBase(int sueldoBase) {
+    public void setSueldoBase(float sueldoBase) {
         this.sueldoBase = sueldoBase;
+    }    
+
+    public PrevisionDTO getPrevision() {
+        return prevision;
     }
 
-    public String getAfp() {
-        return afp;
-    }
-
-    public void setAfp(String afp) {
-        this.afp = afp;
-    }
-
-    public String getIsapre() {
-        return isapre;
-    }
-
-    public void setIsapre(String isapre) {
-        this.isapre = isapre;
+    public void setPrevision(PrevisionDTO prevision) {
+        this.prevision = prevision;
     }
 
     @Override
     public String toString() {
-        return "DoctorDTO{" + "idDoctor=" + idDoctor + ", recaudacion=" + recaudacion + ", farmacia=" + farmacia + ", nombre=" + nombre + ", apellido=" + apellido + ", cargo=" + cargo + ", direccion=" + direccion + ", horastrabajadas=" + horastrabajadas + ", horasExtras=" + horasExtras + ", sueldoBase=" + sueldoBase + ", afp=" + afp + ", isapre=" + isapre + '}';
+        return "DoctorDTO{" + "idDoctor=" + idDoctor + ", recaudacion=" + recaudacion + ", farmacia=" + farmacia + ", nombre=" + nombre + ", apellido=" + apellido + ", cargo=" + cargo + ", direccion=" + direccion + ", horastrabajadas=" + horastrabajadas + ", horasExtras=" + horasExtras + ", sueldoBase=" + sueldoBase + ", prevision => [ idPrevision=" + prevision.getIdPrevision() + ", tipo=" + prevision.getTipo() + "]}";
     }    
 }

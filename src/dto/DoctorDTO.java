@@ -10,7 +10,7 @@ public class DoctorDTO {
     private String apellido;
     private String cargo;
     private String direccion;
-    private float horastrabajadas;
+    private float horasTrabajadas;
     private float horasExtras;
     private float sueldoBase;
     private PrevisionDTO prevision; 
@@ -18,7 +18,6 @@ public class DoctorDTO {
     public int getIdDoctor() {
         return idDoctor;
     }
-
    
     public void setIdDoctor(int idDoctor) {
         this.idDoctor = idDoctor;
@@ -72,16 +71,16 @@ public class DoctorDTO {
         this.direccion = direccion;
     }
 
-    public float getHorastrabajadas() {
-        return horastrabajadas;
+    public float getHorasTrabajadas() {
+        return horasTrabajadas;
     }
     
-    public void setHorastrabajadas(float horastrabajadas) {
+    public void setHorasTrabajadas(float horasTrabajadas) {
         
-        if(horastrabajadas < 0)
-            this.horastrabajadas = 0;
+        if(horasTrabajadas < 0)
+            this.horasTrabajadas = 0;
         else
-            this.horastrabajadas = horastrabajadas;
+            this.horasTrabajadas = horasTrabajadas;
     }
     
     public float getHorasExtras() {
@@ -114,6 +113,6 @@ public class DoctorDTO {
 
     @Override
     public String toString() {
-        return "DoctorDTO{" + "idDoctor=" + idDoctor + ", recaudacion=" + recaudacion + ", farmacia=" + farmacia + ", nombre=" + nombre + ", apellido=" + apellido + ", cargo=" + cargo + ", direccion=" + direccion + ", horastrabajadas=" + horastrabajadas + ", horasExtras=" + horasExtras + ", sueldoBase=" + sueldoBase + ", prevision => [ idPrevision=" + prevision.getIdPrevision() + ", tipo=" + prevision.getTipo() + "]}";
+        return "DoctorDTO{" + "idDoctor=" + idDoctor + ", recaudacion=" + recaudacion + ", farmacia=" + farmacia + ", nombre=" + nombre + ", apellido=" + apellido + ", cargo=" + cargo + ", direccion=" + direccion + ", horastrabajadas=" + horasTrabajadas + ", horasExtras=" + horasExtras + ", sueldoBase=" + sueldoBase + ", prevision => [ idPrevision=" + prevision.getIdPrevision() + ", tipo=" + prevision.getTipo() + "]}";
     }    
 }

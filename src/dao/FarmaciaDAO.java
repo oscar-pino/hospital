@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class FarmaciaDAO {
+public class FarmaciaDAO implements ICRUD<FarmaciaDTO> {
     
     private Conexion objCon;
     private Connection conn;
@@ -17,8 +17,10 @@ public class FarmaciaDAO {
     private String sql;
     private FarmaciaDTO farmaciaDTO;
 
-    public FarmaciaDTO crearUsuario(FarmaciaDTO farmacia) {
+    @Override
+    public FarmaciaDTO create(FarmaciaDTO farmacia) {
         
+           
         try {
             objCon = new Conexion();
             conn = objCon.getConexion();
@@ -48,9 +50,10 @@ public class FarmaciaDAO {
         }
             return null;
     }
-  
-    public FarmaciaDTO listarFarmaciaPorID(int idFarmacia) {
 
+    @Override
+    public FarmaciaDTO readByID(int id) {        
+        
         ResultSet rs;
         FarmaciaDTO farmacia;
         
@@ -60,7 +63,7 @@ public class FarmaciaDAO {
             conn = objCon.getConexion();
             sql = "SELECT nombre_producto, descripcion_producto, proveedor, unidades, precio, farmaceutico, registro_recetas from farmacia where id_farmacia = ?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, idFarmacia);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -85,10 +88,12 @@ public class FarmaciaDAO {
             JOptionPane.showMessageDialog(null, "¡Error Al Listar Farmacia Por ID!\n"+e.getMessage());
         }
         return null;
-    }
-    
-    public ArrayList<FarmaciaDTO> listarFarmacias() {
 
+    }
+
+    @Override
+    public ArrayList<FarmaciaDTO> readAll() {
+        
         ResultSet rs;
         TipoUsuarioDAO tipoDAO;
         ArrayList<FarmaciaDTO> farmacias;
@@ -129,7 +134,8 @@ public class FarmaciaDAO {
         return null;
     }
 
-    public FarmaciaDTO actualizarFarmacia(FarmaciaDTO farmacia) {        
+    @Override
+    public FarmaciaDTO update(FarmaciaDTO farmacia) {
         
         try {
             
@@ -159,11 +165,11 @@ public class FarmaciaDAO {
             JOptionPane.showMessageDialog(null, "¡Error Al Actualizar Registro Farmacia!\n" + e.getMessage());
         }
             return null;
-
     }
 
-    public int eliminarfarmacia(int idFarmacia) {
-
+    @Override
+    public int delete(int id) {
+        
         try {
             objCon = new Conexion();
             conn = objCon.getConexion();
@@ -171,28 +177,17 @@ public class FarmaciaDAO {
 
             ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, idFarmacia);
+            ps.setInt(1, id);
             ps.execute();
             
             conn.close();
             ps.close();
 
-            return idFarmacia;            
+            return id;            
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "¡Error Al Eliminar Registro Farmacia!\n" + e.getMessage());
         }
             return Integer.MIN_VALUE;
     }
-    
-//    public void agregarListaDeFarmacias(){
-//    
-//        user = new UsuarioDTO();        
-//        
-//        for(UsuarioDTO user : user.agregarListaDeUsuarios()){
-//                  
-//        crearUsuario(user);
-//        
-//        }    
-//    }
 }

@@ -30,7 +30,7 @@ public class Registro extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);        
 
-        if (userDAO.listarUsuarios().isEmpty()) {
+        if (userDAO.readAll().isEmpty()) {
 
             String[] botones = {"Aceptar", "Cancelar"};
 
@@ -312,11 +312,11 @@ public class Registro extends javax.swing.JFrame {
 
         llenarEntidadUsuario();
 
-        if (!userDAO.existeUsername(user.getUsername())) {
+        if (!userDAO.existsUserName(user.getUsername())) {
 
             if (!camposVacios()) {
 
-                if (userDAO.crearUsuario(user) != null) {
+                if (userDAO.create(user) != null) {
                     JOptionPane.showMessageDialog(this, "¡Registro Guardado Exitosamente!");
 
                     vaciarCampos();
@@ -339,19 +339,19 @@ public class Registro extends javax.swing.JFrame {
 
         llenarEntidadUsuario();
         user.setIdUsuario(usuarioSeleccionado);
-        UsuarioDTO capturado = userDAO.listarUsuarioPorID(usuarioSeleccionado);
-        ArrayList<UsuarioDTO> usuarios = userDAO.listarUsuarios();
+        UsuarioDTO capturado = userDAO.readByID(usuarioSeleccionado);
+        ArrayList<UsuarioDTO> usuarios = userDAO.readAll();
         ArrayList<String> nombres = quitarUsername(capturado.getUsername());       
 
             if (!camposVacios()) {
 
-                if (!userDAO.existeUsername(user.getUsername())) {
+                if (!userDAO.existsUserName(user.getUsername())) {
 
                     JOptionPane.showMessageDialog(this, "¡No Puede Cambiar Un Username, Por Uno Que Ya Existe En El Sistema!");
 
                 } else {
 
-                    if (userDAO.actualizarUsuario(user) != null) {
+                    if (userDAO.update(user) != null) {
 
                         JOptionPane.showMessageDialog(this, "¡Usuario Con ID: " + usuarioSeleccionado + ", Actualizado Correctamente");
                         vaciarCampos();
@@ -413,11 +413,11 @@ public class Registro extends javax.swing.JFrame {
 
         if (usuarioSeleccionado != 0) {
 
-            if (userDAO.listarUsuarioPorID(usuarioSeleccionado) == null) {
+            if (userDAO.readByID(usuarioSeleccionado) == null) {
                 JOptionPane.showMessageDialog(this, "Usuario Con ID: " + usuarioSeleccionado + ", No Existe En El Sistema!");
             } else {
 
-                if (userDAO.eliminarUsuario(usuarioSeleccionado) == Integer.MIN_VALUE) {
+                if (userDAO.delete(usuarioSeleccionado) == Integer.MIN_VALUE) {
                     JOptionPane.showMessageDialog(this, "Usuario Con ID: " + usuarioSeleccionado + "No Se Ha Eliminado!");
                 } else {
                     JOptionPane.showMessageDialog(this, "¡Usuario Con ID: " + usuarioSeleccionado + ", Eliminado Correctamente");
@@ -460,7 +460,7 @@ public class Registro extends javax.swing.JFrame {
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
 
-        existeUsername = userDAO.existeUsername(txtUsername.getText());
+        existeUsername = userDAO.existsUserName(txtUsername.getText());
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -497,7 +497,7 @@ public class Registro extends javax.swing.JFrame {
         String[] datos;
 
         model = new DefaultTableModel();
-        usuarios = userDAO.listarUsuarios();
+        usuarios = userDAO.readAll();
 
         if (usuarios != null) {
             datos = new String[8];
@@ -532,7 +532,7 @@ public class Registro extends javax.swing.JFrame {
     private void mostrarCombobox() {
 
         TipoUsuarioDAO tipoDAO = new TipoUsuarioDAO();
-        ArrayList<TipoUsuarioDTO> tipos = tipoDAO.listarTipos();
+        ArrayList<TipoUsuarioDTO> tipos = tipoDAO.readAll();
 
         cmbRol.removeAllItems();
         
@@ -546,7 +546,7 @@ public class Registro extends javax.swing.JFrame {
 
     public void mostrarUsuario(int idUsuario) {
 
-        UsuarioDTO rec = userDAO.listarUsuarioPorID(usuarioSeleccionado);
+        UsuarioDTO rec = userDAO.readByID(usuarioSeleccionado);
 
         txtNombre.setText(rec.getNombre());
         txtApellido.setText(rec.getApellido());
@@ -620,7 +620,7 @@ public class Registro extends javax.swing.JFrame {
 
     private ArrayList<String> quitarUsername(String quitarUsername) {
 
-        ArrayList<String> nombres = userDAO.listarUsernames();
+        ArrayList<String> nombres = userDAO.readAllUsernames();
         nombres.remove(quitarUsername);
 
         return nombres;

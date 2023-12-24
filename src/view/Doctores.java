@@ -303,7 +303,7 @@ public class Doctores extends javax.swing.JFrame {
     private void mostrarCombobox() {
 
         PrevisionDAO previsionDAO = new PrevisionDAO();
-        ArrayList<PrevisionDTO> previsiones = previsionDAO.listarPrevisiones();
+        ArrayList<PrevisionDTO> previsiones = previsionDAO.readAll();
 
         cmbPrevision.removeAllItems();
         

@@ -2,6 +2,7 @@
 package dao;
 
 import dto.PrevisionDTO;
+import dto.TipoUsuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,16 +10,44 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class PrevisionDAO {
+public class PrevisionDAO implements ICRUD<PrevisionDTO> {
     
     private Conexion objCon;
     private Connection conn;
     private PreparedStatement ps;
     private String sql;
-    private PrevisionDTO prevision;
+    private TipoUsuarioDTO tipo;   
 
-    public PrevisionDTO listarPrevisionPorId(int idPrevision) {
+    @Override
+    public PrevisionDTO create(PrevisionDTO prevision) {
+        
+      try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "INSERT INTO prevision (tipo) values (?)";
 
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, prevision.getTipo());
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return prevision;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Guardar Registro Prevision!\n" + e.getMessage());
+        }
+            return null;
+
+    }
+
+    @Override
+    public PrevisionDTO readByID(int id) {
+        
         ResultSet rs;
         PrevisionDTO prevision;
 
@@ -27,9 +56,9 @@ public class PrevisionDAO {
             prevision = new PrevisionDTO();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM prevision WHERE id_prevision = ?";
+            sql = "SELECT id_prevision, tipo FROM prevision WHERE id_prevision = ?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, idPrevision);
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
@@ -50,8 +79,8 @@ public class PrevisionDAO {
         return null;
     }
     
-    public PrevisionDTO listarPrevisionPorTipo(String tipo) {
-
+    public PrevisionDTO readByTipo(String tipo) {
+        
         ResultSet rs;
         PrevisionDTO prevision;
 
@@ -60,7 +89,7 @@ public class PrevisionDAO {
             prevision = new PrevisionDTO();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM prevision WHERE tipo = ?";
+            sql = "SELECT id_prevision, tipo FROM prevision WHERE tipo = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, tipo);
 
@@ -82,9 +111,10 @@ public class PrevisionDAO {
         }
         return null;
     }
-    
-    public ArrayList<PrevisionDTO> listarPrevisiones() {
 
+    @Override
+    public ArrayList<PrevisionDTO> readAll() {
+        
         ResultSet rs;
         PrevisionDTO prevision;
         ArrayList<PrevisionDTO> previsiones;
@@ -93,7 +123,7 @@ public class PrevisionDAO {
             previsiones = new ArrayList<PrevisionDTO>();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM prevision";
+            sql = "SELECT id_prevision, tipo FROM prevision";
             ps = conn.prepareStatement(sql);
 
             rs = ps.executeQuery();
@@ -113,8 +143,60 @@ public class PrevisionDAO {
 
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "¡Error Al Listar Tipos Previsiones!\n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "¡Error Al Listar Previsiones!\n"+e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public PrevisionDTO update(PrevisionDTO prevision) {
+        
+        try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "UPDATE prevision SET tipo = ? WHERE id_prevision = ?";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, prevision.getTipo());
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return prevision;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Actualizar Prevision!\n" + e.getMessage());
+        }
+            return null;
+    }
+
+    @Override
+    public int delete(int id) {
+        
+        try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "DELETE prevision WHERE id_prevision = ?";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return id;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Eliminar Registro Prevision!\n" + e.getMessage());
+        }
+            return Integer.MIN_VALUE;
     }
 }

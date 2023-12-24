@@ -5,14 +5,13 @@ public class RecaudacionDTO {
     
     private int idRecaudacion;
     private PacienteDTO paciente;
-    private InfraestructuraDTO infracestructura;
-    private int runPaciente;
-    private String isapre;
-    private String fonasa;
+    private InfraestructuraDTO infraestructura;
+    private int runPaciente;    
     private String horaIngreso;
     private String especialidad;
     private String tipoGravedad;
     private String unidadHospitalaria;
+    private PrevisionDTO prevision;
 
     public int getIdRecaudacion() {
         return idRecaudacion;
@@ -30,12 +29,12 @@ public class RecaudacionDTO {
         this.paciente = paciente;
     }
 
-    public InfraestructuraDTO getInfracestructura() {
-        return infracestructura;
+    public InfraestructuraDTO getInfraestructura() {
+        return infraestructura;
     }
 
-    public void setInfracestructura(InfraestructuraDTO infracestructura) {
-        this.infracestructura = infracestructura;
+    public void setInfraestructura(InfraestructuraDTO infraestructura) {
+        this.infraestructura = infraestructura;
     }
 
     public int getRunPaciente() {
@@ -46,20 +45,12 @@ public class RecaudacionDTO {
         this.runPaciente = runPaciente;
     }
 
-    public String getIsapre() {
-        return isapre;
+    public PrevisionDTO getPrevision() {
+        return prevision;
     }
 
-    public void setIsapre(String isapre) {
-        this.isapre = isapre;
-    }
-
-    public String getFonasa() {
-        return fonasa;
-    }
-
-    public void setFonasa(String fonasa) {
-        this.fonasa = fonasa;
+    public void setPrevision(PrevisionDTO prevision) {
+        this.prevision = prevision;
     }
 
     public String getHoraIngreso() {
@@ -96,6 +87,6 @@ public class RecaudacionDTO {
 
     @Override
     public String toString() {
-        return "RecaudacionDTO{" + "idRecaudacion=" + idRecaudacion + ", paciente=" + paciente + ", infracestructura=" + infracestructura + ", runPaciente=" + runPaciente + ", isapre=" + isapre + ", fonasa=" + fonasa + ", horaIngreso=" + horaIngreso + ", especialidad=" + especialidad + ", tipoGravedad=" + tipoGravedad + ", unidadHospitalaria=" + unidadHospitalaria + '}';
+        return "RecaudacionDTO{" + "idRecaudacion=" + idRecaudacion + ", paciente=" + paciente + ", infraestructura=" + infraestructura + ", runPaciente=" + runPaciente + ", prevision [idPrevision= " + prevision.getIdPrevision() + ", tipo= " + prevision.getTipo() + " ], horaIngreso=" + horaIngreso + ", especialidad=" + especialidad + ", tipoGravedad=" + tipoGravedad + ", unidadHospitalaria=" + unidadHospitalaria + '}';
     }   
 }

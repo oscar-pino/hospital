@@ -4,7 +4,7 @@ package dto;
 public class TipoUsuarioDTO {   
     
     private int idTipoUsuario;
-    private String rol;   
+    private String rol;  
 
     public TipoUsuarioDTO(){    
         

@@ -1,6 +1,5 @@
 
 package dao;
-
 import dto.TipoUsuarioDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,16 +8,44 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class TipoUsuarioDAO {
+public class TipoUsuarioDAO implements ICRUD<TipoUsuarioDTO> {
 
     private Conexion objCon;
     private Connection conn;
     private PreparedStatement ps;
     private String sql;
-    private TipoUsuarioDTO tipo;
+    private TipoUsuarioDTO tipo;   
 
-    public TipoUsuarioDTO listarTipoUsuarioPorId(int idTipoUsuario) {
+    @Override
+    public TipoUsuarioDTO create(TipoUsuarioDTO tu) {
+        
+      try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "INSERT INTO tipo_usuario (rol) values (?)";
 
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, tu.getRol());
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return tu;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Guardar Registro TipoUsuario!\n" + e.getMessage());
+        }
+            return null;
+
+    }
+
+    @Override
+    public TipoUsuarioDTO readByID(int id) {
+        
         ResultSet rs;
         TipoUsuarioDTO tipo;
 
@@ -27,9 +54,9 @@ public class TipoUsuarioDAO {
             tipo = new TipoUsuarioDTO();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM tipo_usuario WHERE id_tipo_usuario = ?";
+            sql = "SELECT id_tipo_usuario, rol FROM tipo_usuario WHERE id_tipo_usuario = ?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, idTipoUsuario);
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
 
@@ -50,8 +77,8 @@ public class TipoUsuarioDAO {
         return null;
     }
     
-    public TipoUsuarioDTO listarTipoUsuarioPorRol(String rol) {
-
+    public TipoUsuarioDTO readByRol(String rol) {
+        
         ResultSet rs;
         TipoUsuarioDTO tipo;
 
@@ -60,7 +87,7 @@ public class TipoUsuarioDAO {
             tipo = new TipoUsuarioDTO();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM tipo_usuario WHERE rol = ?";
+            sql = "SELECT id_tipo_usuario, rol FROM tipo_usuario WHERE rol = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, rol);
 
@@ -82,9 +109,10 @@ public class TipoUsuarioDAO {
         }
         return null;
     }
-    
-    public ArrayList<TipoUsuarioDTO> listarTipos() {
 
+    @Override
+    public ArrayList<TipoUsuarioDTO> readAll() {
+        
         ResultSet rs;
         TipoUsuarioDTO tipo;
         ArrayList<TipoUsuarioDTO> tipos;
@@ -93,7 +121,7 @@ public class TipoUsuarioDAO {
             tipos = new ArrayList<TipoUsuarioDTO>();
             objCon = new Conexion();
             conn = objCon.getConexion();
-            sql = "SELECT * FROM tipo_usuario";
+            sql = "SELECT id_tipo_usuario, rol FROM tipo_usuario";
             ps = conn.prepareStatement(sql);
 
             rs = ps.executeQuery();
@@ -116,6 +144,59 @@ public class TipoUsuarioDAO {
             JOptionPane.showMessageDialog(null, "¡Error Al Listar Tipos De Usuarios!\n"+e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public TipoUsuarioDTO update(TipoUsuarioDTO tu) {
+        
+        try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "UPDATE tipo_usuario SET rol = ? WHERE id_tipo_usuario = ?";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setString(1, tu.getRol());
+            ps.setInt(2, tu.getIdTipoUsuario());
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return tu;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Actualizar Registro!\n" + e.getMessage());
+        }
+            return null;
+    }
+
+    @Override
+    public int delete(int id) {
+        
+        try {
+            objCon = new Conexion();
+            conn = objCon.getConexion();
+            
+            sql = "DELETE tipo_usuario WHERE id_tipo_usuario = ?";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+            
+            ps.execute();
+            
+            conn.close();
+            ps.close();
+
+            return id;            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "¡Error Al Eliminar Registro!\n" + e.getMessage());
+        }
+            return Integer.MIN_VALUE;
     }
 }
 
